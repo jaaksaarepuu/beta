@@ -5,27 +5,28 @@
   <meta charset="utf-8">
   <title>Hello World Glia</title>
   <script src="//api.beta.glia.com/salemove_integration.js"></script>
-  <script>
-    var engagementRequest = salemove.requestEngagement('text');
-
-    engagementRequest.engagementPromise.then(function(engagement) {
-      var enableRecordEvent = function(engagement) {
-        var someButton = document.querySelector('.signupclass');
-
-        someButton.addEventListener('jaak_test_signup', function() {
-          engagement.recordEvent({message: 'Record visitor event'});
-        });
-      };
-    });
-  </script>
 </head>
 
 <body>
   <h2>HTML Buttons</h2>
   <p>HTML buttons are defined with the button tag:</p>
 
-  <button id="clickablebutton" class="clickablebutton">Click me</button>
-  <button id="signupbutton" class="signupclass">Signup</button>
+  <button id="clickablebutton">Click me</button>
+  <button id="signupbutton">Signup</button>
+  <script>
+    sm.getApi({version: 'v1'}).then(function(glia) {
+
+    function addSubmitListener(engagement) {
+      var submit = document.querySelector('#signupbutton');
+
+      submit.addEventListener('click', function() {
+        engagement.recordEvent({message: 'Visitor wants to sign up'});
+      });
+    }
+
+    glia.addEventListener(glia.EVENTS.ENGAGEMENT_START, addSubmitListener);
+    });
+  </script>
 </body>
 
 </html>
