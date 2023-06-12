@@ -4,6 +4,19 @@
 <head>
   <meta charset="utf-8">
   <title>Hello World Glia</title>
+  <script>
+    var engagementRequest = salemove.requestEngagement('text');
+
+    engagementRequest.engagementPromise.then(function(engagement) {
+      var enableRecordEvent = function(engagement) {
+        var someButton = document.querySelector('.signupclass');
+
+        someButton.addEventListener('click', function() {
+          engagement.recordEvent({message: 'Record visitor event'});
+        });
+      };
+    });
+  </script>
 </head>
 
 <body>
@@ -12,6 +25,7 @@
   <p>HTML buttons are defined with the button tag:</p>
 
   <button id="button">Click me!</button>
+  <button class="signupclass">Signup</button>
 </body>
 
 </html>
